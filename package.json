@@ -1,0 +1,17 @@
+{
+  "name": "his",
+  "version": "1.0.0",
+  "description": "Example code for candidate",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bom Mongkon",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.11.8",
+    "passport": "^0.4.1",
+    "passport-oauth": "^1.0.0"
+  }
+}
