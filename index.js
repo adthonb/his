@@ -7,6 +7,7 @@ const OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
 const { createLogger, format, transports } = require('winston');
 const { combine, timestamp } = format;
 const path = require('path');
+const rateLimit = require("express-rate-limit");
 
 // Configure the logger to write on file system
 const logger = createLogger({
@@ -71,6 +72,13 @@ passport.use(new BearerStrategy(
   }
 ));
 
+const loginLimiter = rateLimit({
+  windowMs: 45 * 60 * 1000, // 45 mins window
+  max: 15, // start blocking after 5 requests
+  message:
+    "Too many request login from this IP, please try again after 45 mins"
+});
+
 app.use(express.json());
 
 app.get('/', (req, res) => {
@@ -78,7 +86,7 @@ app.get('/', (req, res) => {
 })
 
 // User log-in to service provider
-app.get('/auth/provider', passport.authenticate('provider'));
+app.get('/auth/provider', loginLimiter, passport.authenticate('provider'));
 
 // OAuth 2.0 service provider callback
 app.get('/auth/provider/callback', passport.authenticate('provider', { successRedirect: '/', failureRedirect: '/login' }));

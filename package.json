@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "express-rate-limit": "^5.2.3",
     "mongoose": "^5.11.8",
     "passport": "^0.4.1",
     "passport-oauth": "^1.0.0"
